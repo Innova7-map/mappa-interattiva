@@ -1,0 +1,530 @@
+/*bella sta cosa delle variabili*/
+:root {
+    --brand-orange: #e65100;
+    --brand-orange-light: #ff6d00;
+    --glass-bg: rgba(255, 255, 255, 0.31);
+    --glass-border: rgba(255, 255, 255, 1);
+    --text-dark: #333333;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: "DM Sans", sans-serif;
+    background-color: #fff;
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
+button,
+input,
+select,
+textarea,
+.leaflet-popup-content {
+    font-family: inherit;
+    color: var(--text-dark);
+}
+
+
+/*glassmorphism a gogo*/
+
+.glass-panel {
+    background: radial-gradient(ellipse 130% 90% at 50% 0%, rgba(255, 255, 255, 0.180) 0%, rgba(255, 255, 255, 0.100) 45%, rgba(255, 255, 255, 0.050) 100%);
+    backdrop-filter: blur(14px) saturate(180%);
+    -webkit-backdrop-filter: blur(14px) saturate(180%);
+    border-radius: 24px;
+    box-shadow: 0 15px 45px -11px rgba(0, 0, 0, 0.283), 0 1px 2px rgba(0, 0, 0, 0.141), inset 0 0 8px rgba(255, 255, 255, 0.098),
+    inset 0 4px 8px -4px rgba(0, 0, 0, 0.060), inset 0 -1px 1px rgba(255, 255, 255, 0.154), inset 0 1px 1px rgba(255, 255, 255, 0.700), inset 0 0 0 1px rgba(255, 255, 255, 0.380);
+    overflow: hidden;
+    isolation: isolate;
+}
+
+/*la mappa di desoinnn*/
+#map {
+    width: 100%;
+    height: 100vh;
+}
+
+.leaflet-control-zoom {
+    display: none !important;
+}
+
+/*logo festival*/
+.logo-festival {
+    position: absolute;
+    top: max(12px, env(safe-area-inset-top));
+    right: 16px;
+    width: clamp(140px, 28vw, 280px);
+    height: auto;
+    z-index: 1000;
+}
+
+.logo-dark,
+body.dark-mode .logo-light {
+    display: none;
+}
+
+/* Barra di Ricerca */
+.search-container {
+    position: fixed;
+    top: 100px;
+    z-index: 1000;
+    width: 350px;
+    left: 15px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    padding: 6px 12px;
+    transition: all 0.3s ease;
+}
+
+.ricerca-input {
+    border: none;
+    background: transparent;
+    outline: none;
+    width: 100%;
+    font-size: 13px;
+    color: var(--text-dark);
+}
+
+.ricerca-input::placeholder {
+    color: #000;
+}
+
+.risultati {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    right: 0;
+    max-height: 250px;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 1);
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+    display: none;
+}
+
+.risultati.active {
+    display: block;
+}
+
+.search-item {
+    padding: 10px 12px;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    font-size: 13px;
+}
+
+.search-item:last-child {
+    border-bottom: none;
+}
+
+.search-item:hover {
+    background: rgba(230, 81, 0, 0.15);
+}
+
+.search-item-title {
+    font-weight: bold;
+    color: var(--brand-orange);
+}
+
+.search-item-sub {
+    font-size: 11px;
+    color: #555;
+    margin-top: 2px;
+}
+
+/*la leggenda di Deltarune*/
+.legenda {
+    position: absolute;
+    bottom: 2px;
+    left: 15px;
+    z-index: 1000;
+    padding: 12px 13px;
+    font-size: 13px;
+    max-width: 320px;
+}
+
+.legenda h4 {
+    margin: 0 0 10px 0;
+    font-size: clamp(12px, 3vw, 15px);
+    color: var(--brand-orange);
+    text-transform: uppercase;
+}
+
+.legenda-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    gap: 10px;
+}
+
+.legenda-item:last-child {
+    margin-bottom: 0;
+}
+
+.legenda-info {
+    display: flex;
+    align-items: center;
+}
+
+.legenda-item img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    margin-right: 8px;
+    pointer-events: none;
+}
+
+/*switches bitches e la mappa*/
+.map-controls-left {
+    position: absolute;
+    bottom: 170px;
+    left: 15px;
+    z-index: 1000;
+}
+
+.dark-mode-switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    max-width: 320px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 20px;
+    flex-shrink: 0;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    inset: 0;
+    background-color: #ccc;
+    transition: .3s;
+    border-radius: 20px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 3px;
+    bottom: 3px;
+    background-color: #fff;
+    transition: .3s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: var(--brand-orange);
+}
+
+input:checked+.slider:before {
+    transform: translateX(16px);
+}
+
+
+/*popup e stili personalizzati*/
+
+.leaflet-popup-content-wrapper {
+    background: rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.leaflet-popup-tip {
+    background: rgba(255, 255, 255, 0.2) !important;
+}
+
+.popup-festival {
+    max-width: 260px;
+}
+
+.popup-festival h2 {
+    margin: 0;
+    font-size: 13px;
+    color: #000;
+    text-transform: uppercase;
+}
+
+.popup-festival h3 {
+    margin: 2px 0 10px 0;
+    color: var(--brand-orange);
+    font-size: 16px;
+}
+
+.programma-list {
+    list-style: none;
+    padding: 8px 0 0 0;
+    margin: 8px 0 12px 0;
+    border-top: 1px solid #ccc;
+}
+
+.programma-list li {
+    font-size: 13px;
+    margin-bottom: 6px;
+}
+
+.programma-list .ora {
+    font-weight: bold;
+    color: var(--brand-orange-light);
+    margin-right: 4px;
+}
+
+.programma-list .evento-titolo {
+    font-weight: 600;
+}
+
+.programma-list .relatore {
+    font-size: 11px;
+    color: #808080;
+    margin-left: 45px;
+}
+
+.popup-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.btn-map,
+.btn-agenda {
+    display: inline-block;
+    text-align: center;
+    padding: 6px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+
+.btn-map {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.23);
+    color: #fff;
+}
+
+.btn-agenda {
+    background: rgba(255, 98, 0, 0.247);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 96, 0, 0.23);
+    color: #000;
+}
+
+.btn-agenda:hover {
+    background-color: var(--brand-orange);
+}
+
+.custom-pin-bancarella {
+    position: relative;
+    text-align: center;
+}
+
+.custom-pin-bancarella img {
+    width: 30px;
+    height: 50px;
+    display: block;
+}
+
+.custom-pin-bancarella .pin-numero {
+    position: absolute;
+    top: 4px;
+    left: -1.8px;
+    width: 100%;
+    font-size: 15px;
+    font-weight: bold;
+    color: #fff;
+    pointer-events: none;
+}
+
+/* Clustering all in your face oh yeahh */
+.marker-cluster-small,
+.marker-cluster-medium,
+.marker-cluster-large {
+    background: rgba(230, 81, 0, 0.31) !important;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+}
+
+.marker-cluster div {
+    background: transparent !important;
+    color: #fff;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+
+/*stili della dark mode*/
+body.dark-mode {
+    --glass-bg: rgba(30, 30, 30, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --text-dark: #ffffff;
+}
+
+body.dark-mode .logo-dark {
+    display: block;
+}
+
+body.dark-mode .glass-panel {
+    background: radial-gradient(ellipse 130% 90% at 50% 0%, rgba(10, 12, 20, 0.630) 0%, rgba(10, 12, 20, 0.550) 45%, rgba(10, 12, 20, 0.500) 100%);
+  backdrop-filter: blur(26px) saturate(140%);
+  -webkit-backdrop-filter: blur(26px) saturate(140%);
+  border-radius: 24px;
+  box-shadow: 0 20px 58px -15px rgba(0, 0, 0, 0.312), 0 1px 2px rgba(0, 0, 0, 0.156), inset 0 0 16px rgba(255, 255, 255, 0.040), inset 0 4px 8px -4px rgba(0, 0, 0, 0.220), inset 0 -1px 1px rgba(0, 0, 0, 0.280), inset 0 1px 1px rgba(255, 255, 255, 0.096), inset 0 0 0 1px rgba(255, 255, 255, 0.063);
+  color: #ffffff;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+body.dark-mode .ricerca-input {
+    color: #ffffff;
+}
+
+body.dark-mode .ricerca-input::placeholder {
+    color: #a0a0a0;
+}
+
+body.dark-mode .risultati {
+    background: rgba(25, 25, 30, 0.95);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+body.dark-mode .search-item {
+    border-bottom-color: rgba(255, 255, 255, 0.08);
+    color: #e0e0e0;
+}
+
+body.dark-mode .search-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .search-item-sub {
+    color: #aaa;
+}
+
+body.dark-mode .leaflet-popup-content-wrapper,
+body.dark-mode .leaflet-popup-tip {
+    background: rgba(30, 30, 30, 0.65) !important;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+body.dark-mode .leaflet-popup-content {
+    color: #fff;
+}
+
+body.dark-mode .popup-festival h2 {
+    color: #ffffff;
+}
+
+body.dark-mode .popup-festival .programma-list li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+
+body.dark-mode .popup-festival .evento-titolo {
+    color: #ffffff;
+}
+
+body.dark-mode .popup-festival .relatore {
+    color: #cccccc;
+}
+
+body.dark-mode .leaflet-container a.leaflet-popup-close-button {
+    color: #aaa;
+}
+
+body.dark-mode .leaflet-container a.leaflet-popup-close-button:hover {
+    color: #fff;
+}
+
+body.dark-mode .btn-map {
+    background-color: #000000;
+    color: #fff;
+    border-color: #ffffff;
+}
+
+body.dark-mode .btn-agenda {
+    background: rgba(255, 98, 0, 0.925);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.473);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 98, 0, 0.623);
+    color: #fff;
+}
+
+body.dark-mode .marker-cluster div {
+    color: #000;
+}
+
+
+/* Mobile */
+@media (max-width: 600px) {
+    .legenda {
+        width: calc(100% - 24px);
+        max-width: 340px;
+        left: 12px;
+        bottom: 12px;
+        font-size: 13px;
+        padding: 10px 12px;
+        z-index: 1000;
+    }
+
+    .map-controls-left {
+        position: absolute;
+        left: 12px;
+        bottom: 190px;
+        z-index: 1000;
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .legenda {
+        width: 320px;
+        left: 20px;
+        bottom: 20px;
+        padding: 14px 16px;
+        font-size: 14px;
+    }
+
+    .map-controls-left {
+        left: 20px;
+        bottom: 190px;
+    }
+}

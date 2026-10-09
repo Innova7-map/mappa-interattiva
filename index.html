@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+
+    <title>Mappa Interattiva del Festival</title>
+
+    
+    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+    <link rel="shortcut icon" href="img/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="favicon/site.webmanifest" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+
+<body>
+
+    <img src="img/reazioni.png" alt="Logo Festival" class="logo-festival logo-light" />
+    <img src="img/reazioni_b.png" alt="Logo Festival Dark" class="logo-festival logo-dark" />
+
+    <div class="search-container">
+        <div class="search-box glass-panel">
+            <input type="text" id="ricercaInput" class="ricerca-input"
+                placeholder="🔎︎ Cerca un evento, relatore o luogo..." autocomplete="off">
+        </div>
+        <div id="Risultati" class="risultati"></div>
+    </div>
+
+    <div class="legenda glass-panel">
+        <h4>Legenda</h4>
+        <div class="legenda-item">
+            <div class="legenda-info">
+                <img src="img/logo-festival-base1.png" alt="Location icon">
+                <span>Location Principali</span>
+            </div>
+            <label class="switch">
+                <input type="checkbox" data-cluster="principali" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="legenda-item">
+            <div class="legenda-info">
+                <img src="img/custom-pin-bancarella.png" alt="Villaggio icon">
+                <span>Villaggio Scientifico</span>
+            </div>
+            <label class="switch">
+                <input type="checkbox" data-cluster="bancarelle" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="legenda-item">
+            <div class="legenda-info">
+                <img src="img/icon-info.png" alt="Info icon">
+                <span>Infopoint</span>
+            </div>
+            <label class="switch">
+                <input type="checkbox" data-cluster="infopoint" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="legenda-item">
+            <div class="legenda-info">
+                <img src="img/comune-fuori.png" alt="Metropolitano icon">
+                <span>Festival Metropolitano</span>
+            </div>
+            <label class="switch">
+                <input type="checkbox" data-cluster="fuori" checked>
+                <span class="slider"></span>
+            </label>
+        </div>
+    </div>
+
+    <div class="map-controls-left">
+        <div class="dark-mode-switch glass-panel">
+            <label class="switch">
+                <input type="checkbox" id="darkModeToggle">
+                <span class="slider"></span>
+            </label>
+            <span>Dark Mode</span>
+        </div>
+    </div>
+
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    
+    <script src="data.js"></script>
+    <script src="main.js"></script>
+</body>
+
+</html>
+
+<!--features cercate su Design.dev e css.glass-->
